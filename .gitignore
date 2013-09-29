@@ -1,0 +1,6 @@
+target/
+other/
+src/main/resources/territory/lr/serve/
+*.iml
+*.ipr
+*.iws
