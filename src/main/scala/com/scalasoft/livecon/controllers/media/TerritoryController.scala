@@ -92,11 +92,7 @@ class TerritoryController extends BaseController {
         val terrImg = ImageIO.read(new File(servletContext.getRealPath(baseDirPathString + territories(territory) + ".png"))) ?! CoreExcCodes.OBJ_NULL
 
         // get it's color and change it
-        val color = teams(if (diplo) {
-          "2"
-        } else {
-          itemData(1)
-        })
+        val color = teams(itemData(1))
         colorImage(terrImg, color)
 
         // overlay the image
