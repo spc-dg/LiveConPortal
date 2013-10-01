@@ -57,7 +57,6 @@ class TerritoryController extends BaseController {
        *
        * You take the base image. Then for each territory and color you find the image and
        * fill it with that color then overlay it on top of the base image. Save it in the serve dir for caching then serve it.
-       * If type is diplo all territories are green.
        */
       ((imgCode ? "").trim != "") #! CoreExcCodes.OBJ_NULL
 
