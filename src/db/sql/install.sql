@@ -67,8 +67,8 @@ DROP TABLE IF EXISTS `LIVECON`.`game` ;
 CREATE TABLE IF NOT EXISTS `LIVECON`.`game` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `server_id` BIGINT NOT NULL,
-  `date_start` DATETIME NOT NULL,
-  `date_end` DATETIME NOT NULL,
+  `date_start` DATETIME NULL,
+  `date_end` DATETIME NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `fk_game_server1_idx` (`server_id` ASC),
