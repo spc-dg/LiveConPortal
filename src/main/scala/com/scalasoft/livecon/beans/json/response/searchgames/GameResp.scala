@@ -15,6 +15,7 @@ class GameResp {
   @BeanProperty var startDate: Date = _
   @BeanProperty var endDate: Date = _
   @BeanProperty var dcrec: String = _
+  @BeanProperty var scoresSigned: Boolean = _
   @BeanProperty var serverData: ServerResp = _
   @BeanProperty var playerData: java.util.List[PlayerResp] = _
 }

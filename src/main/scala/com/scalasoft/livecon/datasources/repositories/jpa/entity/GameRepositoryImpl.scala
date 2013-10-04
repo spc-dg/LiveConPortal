@@ -219,6 +219,7 @@ class GameRepositoryImpl extends GameRepository {
             // first add top - level game data
             gameResp.startDate = rs.date("date_start") ?! CoreExcCodes.OBJ_NULL
             gameResp.endDate = rs.date("date_end") ?! CoreExcCodes.OBJ_NULL
+            gameResp.scoresSigned = rs.int("scores_signed") ?! CoreExcCodes.OBJ_NULL != 0
             gameResp.dcrec = rs.getString("dcrec")
 
             // now add some server data

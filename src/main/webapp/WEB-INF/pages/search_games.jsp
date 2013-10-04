@@ -254,6 +254,15 @@ function searchData() {
                     });
                     imgReqStr += ".png";
 
+                    // scores signed or unsigned
+                    var signed = '<s:message code="page.search_games.game_box.signed"/>';
+                    var signedColor = 'green'
+
+                    if (!game.scoresSigned) {
+                        signed = '<s:message code="page.search_games.game_box.unsigned"/>';
+                        signedColor = 'red';
+                    }
+
                     // Create a small individual game string and compose it
                     gameStr += '<div class="column' + wrap3 + '">';
                     gameStr += '<span class="icon icon-gif"></span>';
@@ -268,8 +277,12 @@ function searchData() {
                     gameStr += '</td></tr><tr>';
                     gameStr += '<td><span style="float:left;"><s:message code="page.search_games.game_box.enddate"/>:</span></td><td> <span style="float:right;">' + end + '</span>';
                     gameStr += '</td></tr>';
+                    gameStr += '<tr><td><span style="float:left; color:' + signedColor + ';">' + signed + '</td></tr>';
                     gameStr += '<tr><td colspan="2">';
-                    gameStr += '<button onclick="goPost(\'dcrec' + '\',{dcrecPath:\'' + dcrec + '\'},\'_new\');" style="float:left;" class="dcrec_btn">dcrec</button>';
+
+                    if (typeof dcrec !== 'undefined' && dcrec != null && dcrec.trim() != '')
+                        gameStr += '<button onclick="goPost(\'dcrec' + '\',{dcrecPath:\'' + dcrec + '\'},\'_new\');" style="float:left;" class="dcrec_btn">dcrec</button>';
+
                     gameStr += '</td></tr>';
                     gameStr += '</table>';
                     gameStr += '</div>';

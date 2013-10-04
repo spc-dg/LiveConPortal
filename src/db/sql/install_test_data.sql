@@ -101,11 +101,11 @@ INSERT INTO server
   Then we insert games. One 1v1 and one 2v2.
  */
 
-INSERT INTO game (server_id, date_start, date_end)
-  VALUES (1, current_date(), current_date() + 1);
+INSERT INTO game (server_id, date_start, date_end, scores_signed)
+  VALUES (1, current_date(), current_date() + 1, 1);
 
-INSERT INTO game (server_id, date_start, date_end)
-  VALUES (2, current_date() + 1, current_date() + 2);
+INSERT INTO game (server_id, date_start, date_end, scores_signed)
+  VALUES (2, current_date() + 1, current_date() + 2, 0);
 
 /**
    Then we add drecs to them.
@@ -121,13 +121,13 @@ INSERT INTO dcrec (game_id, dir, full_path)
   After that we insert 4 players (all noobs :))
  */
 
-INSERT INTO player (keyId) VALUES ('noob-00-1');
+INSERT INTO player (keyId, ip) VALUES ('noob-00-1','192.168.0.1');
 
-INSERT INTO player (keyId) VALUES ('noob-00-2');
+INSERT INTO player (keyId, ip) VALUES ('noob-00-2','192.168.0.1');
 
-INSERT INTO player (keyId) VALUES ('noob-00-3');
+INSERT INTO player (keyId, ip) VALUES ('noob-00-3','192.168.0.1');
 
-INSERT INTO player (keyId) VALUES ('noob-00-4');
+INSERT INTO player (keyId, ip) VALUES ('noob-00-4','192.168.0.1');
 
 /**
   We insert the associative date - attaching players to games. 2 for the 1v1 and 4 for the 2v2.
