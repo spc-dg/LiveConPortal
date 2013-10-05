@@ -271,12 +271,12 @@ function searchData() {
                     }
 
                     // Create a small individual game string and compose it
-                    gameStr += '<div class="column' + wrap3 + '">';
+                    gameStr += '<div class="column1">';
                     gameStr += '<span class="icon icon-gif"></span>';
                     gameStr += '<div style="float:left; ">';
                     gameStr += '<img src="' + imgReqStr + '"/>';
                     gameStr += '</div>';
-                    gameStr += '<div class="title" style="float:left; padding-left:2px; width: 215px;">';
+                    gameStr += '<div class="title" style="float:left; padding-left:2px; width: 240px;">';
                     gameStr += '<h3 style="padding-left:2px;">' + game.serverData.name + '</h3>';
                     gameStr += '<table>';
 
@@ -286,7 +286,7 @@ function searchData() {
                     if (isThere(game.endDate))
                         gameStr += '<tr><td><span style="float:left;"><s:message code="page.search_games.game_box.enddate"/>:</span></td><td> <span style="float:right;">' + end + '</span></td></tr>';
 
-                    gameStr += '<tr><td><span style="float:left; color:' + signedColor + ';">' + signed + '</td></tr>';
+                    gameStr += '<tr><td colspan="2"><span style="float:left; color:' + signedColor + ';">' + signed + '</td></tr>';
                     gameStr += '<tr><td colspan="2">';
 
                     if (isThere(dcrec))
