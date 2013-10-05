@@ -43,7 +43,7 @@ class SearchGamesControllerTest {
    */
   @Test
   def indexPageTest() {
-    mockMvc.perform(get("/")).andExpect(status.isOk).andExpect(view.name("latest_games"))
+    mockMvc.perform(get("/")).andExpect(status.isOk).andExpect(view.name("search_games"))
   }
 }
 

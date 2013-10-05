@@ -15,7 +15,7 @@
 
 <head>
     <scs:html_header_tag/>
-    <title>LiveCon - <s:message code="pages.search_games.title_fragment"/></title>
+    <title><s:message code="pages.search_games.main_title"/> - <s:message code="pages.search_games.title_fragment"/></title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 <div id="header-wrapper">
     <div id="header" class="container">
         <div id="logo">
-            <h1><a href="${pageContext.request.contextPath}">LiveCon</a></h1>
+            <h1><a href="${pageContext.request.contextPath}"><s:message code="pages.search_games.main_title"/></a></h1>
         </div>
         <div id="menu">
             <scs:page_menu_tag selected="1"/>
@@ -91,12 +91,11 @@
         </div>
     </div>
 
-
-    <div id="featured-wrapper" class="loadmasked">
-        <div id="game_list" class="container"></div>
-    </div>
     <div id="paginator_wrapper" class="loadmasked">
         <div id="paginator"></div>
+    </div>
+    <div id="featured-wrapper" class="loadmasked">
+        <div id="game_list" class="container"></div>
     </div>
 </div>
 <scs:html_footer_tag/>
