@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `LIVECON`.`game` (
   `date_start` DATETIME NULL,
   `date_end` DATETIME NULL,
   `scores_signed` INT(1) NOT NULL,
+  `date_added` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `fk_game_server1_idx` (`server_id` ASC),

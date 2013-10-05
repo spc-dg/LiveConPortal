@@ -38,7 +38,7 @@ class AutocompletePlayerController extends BaseController {
   def get(modelMap: ModelMap, @RequestParam term: String): java.util.List[String] = {
 
     // Get first 5 ingame names by the filter
-    val pageable = new PageRequest(0, 5, Direction.ASC, "name")
+    val pageable = new PageRequest(0, 20, Direction.ASC, "name")
     val result = ingameNameRepository.findByNameLike(term, pageable)
 
     val contentList = result.getContent

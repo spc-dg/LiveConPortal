@@ -498,7 +498,8 @@ ul.contact li a.icon-rss:before {
 .column2,
 .column3,
 .column4 {
-    width: 355px;
+    width: 380px;
+    margin-top:10px;
 }
 
 .column1,

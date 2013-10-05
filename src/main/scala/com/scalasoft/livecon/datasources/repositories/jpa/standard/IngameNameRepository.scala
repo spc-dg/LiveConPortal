@@ -22,6 +22,6 @@ trait IngameNameRepository extends PagingAndSortingRepository[IngameNameE, java.
    * @param pageable the pagination data
    * @return an IngameNameE instance
    */
-  @Query("select distinct i.name from IngameNameE i where i.name like %?1%")
+  @Query("select distinct i.name from IngameNameE i where i.name is not null and trim(i.name) <> '' and i.name like %?1% order by i.name asc")
   def findByNameLike(name: String, pageable: Pageable): Page[String]
 }

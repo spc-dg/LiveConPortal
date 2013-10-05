@@ -50,6 +50,6 @@
      * @returns if the value 'is there'
      */
     function isThere(value) {
-        return typeof value !== 'undefined' && value && value != null && value.trim() != '';
+        return typeof value !== 'undefined' && value && value != null && value != 'null' && String(value).trim() != '';
     }
 </script>

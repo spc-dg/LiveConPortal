@@ -92,8 +92,8 @@
     </div>
 
 
-    <div id="featured-wrapper">
-        <div id="game_list" class="container loadmasked"></div>
+    <div id="featured-wrapper" class="loadmasked">
+        <div id="game_list" class="container"></div>
     </div>
     <div id="paginator_wrapper" class="loadmasked">
         <div id="paginator"></div>
@@ -131,11 +131,14 @@ function searchData() {
         });
     }
 
+    // clean the old data
+    $("#featured-wrapper").empty();
+
     // There must be servers
     if (inServers.length > 0) {
         // Now it gets all player info
-        var page = 1;
-        var numPerPage = 8;
+
+        var numPerPage = 9;
         var playerData = {};
         var players = [];
 
@@ -155,7 +158,7 @@ function searchData() {
         // Now create a request object, add the data to it and serialise it
         var req = {
             page: page,
-            numPerPage: 6,
+            numPerPage: numPerPage,
             servers: inServers,
             players: players
         };
@@ -196,10 +199,6 @@ function searchData() {
                     var strGame = '';
                 });
 
-
-                // clean the old data
-                $("#game_list").html('');
-
                 // Then handle pagination info and load the paginator
                 var maxPage = data.maxPages;
                 page = data.page;
@@ -207,8 +206,8 @@ function searchData() {
                 // Page pagination
                 $("#paginator").paginate({
                     count: maxPage,
-                    start: 1,
-                    display: page,
+                    start: page,
+                    display: Math.min(10, maxPage),
                     border: true,
                     border_color: '#fff',
                     text_color: '#fff',
@@ -230,11 +229,19 @@ function searchData() {
                 // Then load the game data
                 var terrMap = {"NA": 1, "SA": 2, "EU": 3, "RU": 4, "AS": 5, "AF": 6};
                 var teamMap = {"RED": 1, "GREEN": 2, "BLUE": 3, "YELLOW": 4, "ORANGE": 5, "TURQ": 6, "WHITE": 7};
-                var allStr = "";
+                var allStr = '<div id="game_list" class="container loadmasked"><table>';
                 var index = 1;
+                var wrap3 = 1;
+                var trClosed = true;
                 $.each(data.games, function (igames, game) {
                     var gameStr = "";
-                    var wrap3 = (igames + 1) % 3;
+
+                    if (wrap3 == 1) {
+                        gameStr += '<tr>';
+                        trClosed = false;
+                    }
+
+                    gameStr += '<td style="vertical-align: top;">';
 
                     var start = $.format.date(new Date(game.startDate), 'yyyy-MM-dd H:mm');
                     var end = $.format.date(new Date(game.endDate), 'yyyy-MM-dd H:mm');
@@ -272,15 +279,17 @@ function searchData() {
                     gameStr += '<div class="title" style="float:left; padding-left:2px; width: 215px;">';
                     gameStr += '<h3 style="padding-left:2px;">' + game.serverData.name + '</h3>';
                     gameStr += '<table>';
-                    gameStr += '<tr>';
-                    gameStr += '<td><span style="float:left;"><s:message code="page.search_games.game_box.startdate"/>:</span></td><td><span style="float:right;"> ' + start + '</span> ';
-                    gameStr += '</td></tr><tr>';
-                    gameStr += '<td><span style="float:left;"><s:message code="page.search_games.game_box.enddate"/>:</span></td><td> <span style="float:right;">' + end + '</span>';
-                    gameStr += '</td></tr>';
+
+                    if (isThere(game.startDate))
+                        gameStr += '<tr><td><span style="float:left;"><s:message code="page.search_games.game_box.startdate"/>:</span></td><td><span style="float:right;"> ' + start + '</span></td></tr> ';
+
+                    if (isThere(game.endDate))
+                        gameStr += '<tr><td><span style="float:left;"><s:message code="page.search_games.game_box.enddate"/>:</span></td><td> <span style="float:right;">' + end + '</span></td></tr>';
+
                     gameStr += '<tr><td><span style="float:left; color:' + signedColor + ';">' + signed + '</td></tr>';
                     gameStr += '<tr><td colspan="2">';
 
-                    if (typeof dcrec !== 'undefined' && dcrec != null && dcrec.trim() != '')
+                    if (isThere(dcrec))
                         gameStr += '<button onclick="goPost(\'dcrec' + '\',{dcrecPath:\'' + dcrec + '\'},\'_new\');" style="float:left;" class="dcrec_btn">dcrec</button>';
 
                     gameStr += '</td></tr>';
@@ -333,16 +342,34 @@ function searchData() {
                     gameStr += '</table>';
                     gameStr += '</p>';
                     gameStr += '</div>';
+                    gameStr += '</td>';
 
-                    // Add it to the big string
-                    allStr += gameStr;
 
                     // increment the master index
                     index++;
+
+                    // increment wrap3
+                    if (wrap3 == 3) {
+                        wrap3 = 1;
+                        gameStr += '</tr>';
+                        trClosed = true;
+                    }
+                    else
+                        wrap3++;
+
+
+                    // Add it to the big string
+                    allStr += gameStr;
                 });
 
+                if (!trClosed)
+                    allStr += '</tr>';
+
+                //finally finish all str
+                allStr += '</table></div>';
+
                 // Then just append it to the dom
-                $("#game_list").append(allStr);
+                $("#featured-wrapper").append(allStr);
 
                 // Data table the game tables
                 $('.gamebox_table').dataTable({
@@ -359,6 +386,28 @@ function searchData() {
             error: function (data) {
                 jerr = data;
                 alert($.JSON.encode(jerr));
+            }
+        });
+    } else {
+        // Clear out the paginator too
+        $("#paginator").paginate({
+            count: 1,
+            start: 1,
+            display: 1,
+            border: true,
+            border_color: '#fff',
+            text_color: '#fff',
+            background_color: '#0073ea',
+            border_hover_color: '#ccc',
+            text_hover_color: '#000',
+            background_hover_color: '#fff',
+            images: false,
+            mouse: 'press',
+            firstName: '<s:message code="ui.pagination.firstname"/>',
+            lastName: '<s:message code="ui.pagination.lastname"/>',
+            onChange: function (newPage) {
+                // just search
+                searchData();
             }
         });
     }

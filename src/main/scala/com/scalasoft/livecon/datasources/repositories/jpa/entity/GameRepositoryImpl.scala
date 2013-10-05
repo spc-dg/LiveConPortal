@@ -32,14 +32,12 @@ import com.scalasoft.scalalib.DataImplicits._
     s.name,
     s.num_players,
     s.unique_name,
-    d.full_path dcrec
+    (select d.full_path from dcrec d where dcrecgame_id = g.id) dcrec
 from
     game g,
-    server s,
-    dcrec d
+    server s
 where
     g.server_id = s.id
-        and g.id = dcrec.game_id
         and s.id in (1, 2, 3, 4, 5, 6)
         and g.id in (select
             s1.id
@@ -110,9 +108,9 @@ class GameRepositoryImpl extends GameRepository {
         val searchPlayers = !(players == null || players.length == 0)
 
         val query = new StringBuilder()
-          .append(" select g.*, s.archived, s.diplo, s.dir, s.name, s.num_players, s.unique_name, d.full_path dcrec ")
-          .append(" from game g, server s, dcrec d ")
-          .append(" where g.server_id = s.id and g.id = d.game_id ")
+          .append(" select g.*, s.archived, s.diplo, s.dir, s.name, s.num_players, s.unique_name, (select d.full_path from dcrec d where d.game_id = g.id) dcrec ")
+          .append(" from game g, server s ")
+          .append(" where g.server_id = s.id ")
 
         // Make a number of ? for each server
         val serversQm = searchBean.servers.map(_ => "?").mkString(",")
@@ -166,6 +164,9 @@ class GameRepositoryImpl extends GameRepository {
           query.append(" )")
         }
 
+        // add order
+        query.append(" order by date_added desc ")
+
 
         // Create the parameter list
         val params = new ListBuffer[Any]
@@ -196,10 +197,9 @@ class GameRepositoryImpl extends GameRepository {
           page = maxPages
 
         val limitStart = if (page == 1) 0 else (page - 1) * numPerPage + 1
-        val limitEnd = Math.min(page * numPerPage, total)
 
         // now limit the query
-        query.append(" limit ").append(limitStart).append(",").append(limitEnd)
+        query.append(" limit ").append(limitStart).append(",").append(numPerPage)
 
         // Start constructing the response
         responseBean.setPage(page)
@@ -217,10 +217,10 @@ class GameRepositoryImpl extends GameRepository {
 
 
             // first add top - level game data
-            gameResp.startDate = rs.date("date_start") ?! CoreExcCodes.OBJ_NULL
-            gameResp.endDate = rs.date("date_end") ?! CoreExcCodes.OBJ_NULL
+            gameResp.startDate = rs.date("date_start") ? null
+            gameResp.endDate = rs.date("date_end") ? null
             gameResp.scoresSigned = rs.int("scores_signed") ?! CoreExcCodes.OBJ_NULL != 0
-            gameResp.dcrec = rs.getString("dcrec")
+            gameResp.dcrec = rs.str("dcrec") ? null
 
             // now add some server data
             serverResp.name = rs.str("name") ?! CoreExcCodes.OBJ_NULL
@@ -295,7 +295,7 @@ class GameRepositoryImpl extends GameRepository {
                 if (playerResp.hadScore)
                   playerResp.score = rsp.int("score").get
                 else
-                  playerResp.score = -999
+                  playerResp.score = null.asInstanceOf[Int]
 
                 // territory
                 playerResp.territory = rsp.str("territory") ?! CoreExcCodes.OBJ_NULL
