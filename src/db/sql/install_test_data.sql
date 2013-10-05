@@ -121,13 +121,13 @@ INSERT INTO dcrec (game_id, dir, full_path)
   After that we insert 4 players (all noobs :))
  */
 
-INSERT INTO player (keyId, ip) VALUES ('noob-00-1','192.168.0.1');
+INSERT INTO player (keyId, ip, version) VALUES ('noob-00-1','192.168.0.1', '1.62 STEAM');
 
-INSERT INTO player (keyId, ip) VALUES ('noob-00-2','192.168.0.1');
+INSERT INTO player (keyId, ip, version) VALUES ('noob-00-2','192.168.0.1', '1.60');
 
-INSERT INTO player (keyId, ip) VALUES ('noob-00-3','192.168.0.1');
+INSERT INTO player (keyId, ip, version) VALUES ('noob-00-3','192.168.0.1', '1.62 STEAM');
 
-INSERT INTO player (keyId, ip) VALUES ('noob-00-4','192.168.0.1');
+INSERT INTO player (keyId, ip, version) VALUES ('noob-00-4','192.168.0.1', '1.60');
 
 /**
   We insert the associative date - attaching players to games. 2 for the 1v1 and 4 for the 2v2.
