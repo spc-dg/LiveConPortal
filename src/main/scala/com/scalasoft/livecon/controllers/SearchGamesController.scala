@@ -42,7 +42,7 @@ class SearchGamesController extends BaseController {
   def indexPage(modelMap: ModelMap): String = {
 
     // Get all servers
-    val servers = serverRepository.findAll(new Sort(Direction.ASC, "numPlayers"))
+    val servers = serverRepository.findAll(new Sort(Direction.ASC, "name"))
     modelMap.put("servers", servers)
 
     // return the view
