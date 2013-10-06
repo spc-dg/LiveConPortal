@@ -247,7 +247,7 @@ function searchData() {
                     var dcrec = game.dcrec;
 
                     // Create the image request string
-                    var imgReqStr = "/territory/";
+                    var imgReqStr = "territory/";
                     if (game.serverData.diplo)
                         imgReqStr += "2";
                     else
@@ -258,7 +258,6 @@ function searchData() {
                         imgReqStr += terrMap[playerData.territory] + "-";
                         imgReqStr += teamMap[playerData.teams[playerData.teams.length - 1]];
                     });
-                    imgReqStr += ".png";
 
                     // scores signed or unsigned
                     var signed = '<s:message code="page.search_games.game_box.signed"/>';

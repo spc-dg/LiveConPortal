@@ -6,5 +6,5 @@
 
 <%--suppress HtmlUnknownTarget --%>
 <div id="copyright" class="container">
-    <p>Copyright (c) 2013 TheDoctor. All rights reserved.</p>
+    <p>Copyright (c) 2013. LICENSE: GNU General Public License v3 (GPL-3).</p>
 </div>

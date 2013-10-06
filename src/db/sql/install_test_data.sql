@@ -112,10 +112,10 @@ INSERT INTO game (server_id, date_start, date_end, scores_signed)
  */
 
 INSERT INTO dcrec (game_id, dir, full_path)
-  VALUES (1, 'livecon_1v1_default/archive/2013/02/', 'livecon_1v1_default/archive/2013/02/13:23:04.dcrec');
+  VALUES (1, 'livecon_1v1_default/archive/2013/02/', 'ok.dcrec');
 
 INSERT INTO dcrec (game_id, dir, full_path)
-  VALUES (2, 'livecon_2v2_default/archive/2013/02/', 'livecon_2v2_default/archive/2013/02/13:23:04.dcrec');
+  VALUES (2, 'livecon_2v2_default/archive/2013/02/', 'ok.dcrec');
 
 /**
   After that we insert 4 players (all noobs :))

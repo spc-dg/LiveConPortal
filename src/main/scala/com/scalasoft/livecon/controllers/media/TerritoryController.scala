@@ -38,8 +38,8 @@ class TerritoryController extends BaseController {
   @RequestMapping(value = Array("/territory/{imgCode}"), method = Array(RequestMethod.GET), produces = Array(MediaType.IMAGE_PNG_VALUE))
   @ResponseBody
   def getImage(@PathVariable imgCode: String, modelMap: ModelMap, request: HttpServletRequest, response: HttpServletResponse): Array[Byte] = {
-    val baseDirPathString = "/territory/base/"
-    val serveDirPathString = "/territory/serve/"
+    val baseDirPathString = "terr/base/"
+    val serveDirPathString = "terr/serve/"
     val session = request.getSession
     val servletContext = session.getServletContext
 

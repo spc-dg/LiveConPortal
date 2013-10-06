@@ -32,13 +32,15 @@ class DcrecController extends BaseController {
   @RequestMapping(value = Array("/dcrec"), method = Array(RequestMethod.POST), produces = Array(MediaType.APPLICATION_OCTET_STREAM_VALUE))
   @ResponseBody
   def getImage(@RequestParam dcrecPath: String, modelMap: ModelMap, request: HttpServletRequest, response: HttpServletResponse): Array[Byte] = {
-    val basePathString = "/dcrec/"
+    val basePathString = "dcrc/"
     val session = request.getSession
     val servletContext = session.getServletContext
 
     // Check if the file exists
     val file = new File(servletContext.getRealPath(basePathString + dcrecPath))
     if (file.exists()) {
+      response.setHeader("Content-Disposition", "attachment;filename=" + dcrecPath)
+
       IOUtils.toByteArray(new FileInputStream(file))
     } else {
 
